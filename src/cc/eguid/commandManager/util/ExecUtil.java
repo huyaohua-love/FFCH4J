@@ -20,9 +20,14 @@ public class ExecUtil {
 	 * @throws IOException
 	 */
 	public static Process exec(String cmd) throws IOException {
-		Runtime runtime = Runtime.getRuntime();
-		Process process = runtime.exec(cmd);// 执行命令获取主进程
-		return process;
+		if (System.getProperty("os.name").toUpperCase().indexOf("WIN") != -1) {
+		    // win 执行命令获取主进程
+		    return runtime.exec(cmd);
+		} else {
+		    String[] cmds = {"/bin/sh", "-c", cmd};
+		    // linux 执行命令获取主进程
+		    return runtime.exec(cmd);
+		}
 	}
 	
 	/**
